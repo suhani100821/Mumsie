@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mumsie</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/locomotive-scroll@3.5.4/dist/locomotive-scroll.css">
+    <link rel="stylesheet" href="landing.css">
+
+    <style>
+         #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #F9F9F9;
+           
+            z-index: 9999;
+            
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }*/
+
+
+        #preloader img {
+            width: 470px;
+
+            height: auto;
+
+        }
+
+    .toggle-button {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 50px;
+        padding: 10px 15px;
+        cursor: pointer;
+        z-index: 1001;
+        transition: right 0.3s ease;
+    }
+
+    .toggle-button.expanded {
+        right: 350px; /* Adjust position when chatbot is visible */
+    }
+
+        body {
+            font-family: sans-serif;
+            padding: 0;
+            margin: 0;
+            transition: filter 0.3s ease;
+        }
+
+        header {
+            background-color: #D8B7DD;
+            padding: 10px 0;
+        }
+
+        .logo img {
+            width: 400px;
+            height: auto;
+            /* Maintain aspect ratio */
+        }
+
+        nav {
+            margin: 10px 0;
+            /* Space between nav bars */
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            position: relative;
+        }
+
+        nav li {
+            margin: 0 15px;
+            position: relative;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #333333;
+        }
+
+        nav ul li a:hover {
+            text-decoration: underline;
+        }
+
+        /* Dropdown Menu Styles */
+        .dropdown {
+            display: none;
+            /* Hide dropdown by default */
+            position: absolute;
+            /* Position it below the parent */
+            left: 0;
+            top: 100%;
+            /* Position it below the nav item */
+            background: #F9F9F9;
+            /* Background color of dropdown */
+            border: 1px solid #000000;
+            /* Border around dropdown */
+            z-index: 1000;
+            /* Ensure it appears above other content */
+            width: 200px;
+            /* Width of the dropdown */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            /* Optional shadow */
+
+        }
+
+        /* Show dropdown on hover */
+        nav ul li:hover .dropdown {
+            display: block;
+            /* Show dropdown on hover */
+        }
+
+        .dropdown-item {
+            padding: 10px;
+            /* Padding for dropdown items */
+            border-bottom: 1px solid #F9F9F9;
+            /* Border between items */
+            color: #333333;
+            /* Text color */
+        }
+
+        .dropdown-item:last-child {
+            border-bottom: none;
+            /* Remove border for last item */
+        }
+
+        .dropdown-item:hover {
+            background: #B5D7B8;
+            /* Background color on hover */
+        }
+
+        .hero {
+            background-color: #F8C8D2;
+            text-align: center;
+            padding: 50px 0;
+        }
+
+        .hero h1 {
+            font-size: 3em;
+        }
+
+        .hero p {
+            margin-top: 20px;
+        }
+
+        .second-nav {
+            border-top: 2px solid #000000;
+            /* Border above the second nav */
+            padding-top: 10px;
+            /* Space above the second nav */
+        }
+
+        footer {
+            background-color: #D8B7DD;
+            color: #000000;
+            text-align: center;
+            padding: 15px 0;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+
+
+        @font-face {
+            font-family: PP mori;
+            src: url(./ppmori.ttf);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: PP mori;
+            color: #fff;
+        }
+
+        html,
+        body {
+            height: 100%;
+            width: 100%;
+        }
+
+        #purple {
+            height: 100vh;
+            width: 100vw;
+            top: 0;
+            position: fixed;
+            z-index: 100;
+            background-color: #EDBFFF;
+            opacity: 0;
+            display: none;
+            transition: opacity ease 1s;
+
+        }
+
+
+        .page5 {
+            min-height: 100vh;
+            width: 100%;
+            position: relative;
+            z-index: 9;
+            padding: 140px 100px;
+            background-color: #e59df0;
+
+
+        }
+
+
+
+        .page5 h2 {
+            font-size: 4vw;
+            text-transform: uppercase;
+            font-weight: 400;
+            margin-bottom: 50px;
+            color: #ffffff;
+
+        }
+
+        .page5 h3 {
+            color: #ffffff;
+        }
+
+
+        .page5 .box {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 100px;
+            padding: 0 20px;
+            border-top: 2px solid #a7a5a5;
+        }
+
+        .cursor {
+            /* Keep the cursor styles */
+            height: 20px;
+            width: 20px;
+            border-radius: 50%;
+            position: fixed;
+            background-color: #EDBFFF;
+            z-index: 8;
+            transition: background-image ease 0.5s;
+            background-position: center;
+            background-size: cover;
+            mix-blend-mode: normal;
+            /* Or normal if you don't want difference on the cursor */
+        }
+
+
+        .main {
+            background-color: #d185fa;
+            cursor: none;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .page1 {
+            min-height: 100vh;
+            width: 100%;
+            position: relative;
+            z-index: 9;
+            padding-top: 12vw;
+        }
+
+
+        .page1 h1 {
+            font-size: 8vw;
+            font-weight: 300;
+            font-family: PP mori;
+
+            margin-left: 6vw;
+            transform-origin: left;
+        }
+
+        .page1 h2 {
+            font-size: 8vw;
+            font-weight: 300;
+            transform-origin: left;
+
+            margin-left: 26vw;
+        }
+
+        .page1 video {
+            width: 60%;
+            margin-top: 10vw;
+            position: relative;
+            left: 50%;
+            transform: translate(-50%, 0);
+        }
+
+        .page2 {
+            min-height: 80vh;
+            width: 100%;
+            padding: 100px 5vw;
+            border-bottom: 2px solid #6c6c6c;
+            position: relative;
+            z-index: 9;
+        }
+
+        .page2 h1 {
+            font-size: 7vw;
+            font-weight: 500;
+            color: #111;
+
+        }
+
+        .page2-container {
+            height: 60vh;
+            width: 100%;
+            /* background-color: red; */
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            /* padding: 0 5vw; */
+        }
+
+        .page2-left {
+            /* background-color: blue; */
+            width: 40%;
+        }
+
+        .page2-right {
+            /* background-color: blue; */
+            width: 24%;
+        }
+
+        .page2-left h2 {
+            font-size: 4vw;
+            font-weight: 300;
+            color: #111;
+            line-height: 4vw;
+        }
+
+        .page2-right p {
+            font-size: 28px;
+            color: #111;
+        }
+
+        .page2-right button {
+            width: 100%;
+            border-radius: 50px;
+            border: none;
+            padding: 4px 0;
+            background-color: #EDBFFF;
+            color: #111;
+            margin-top: 20px;
+        }
+
+        .page3 {
+            min-height: 100vh;
+            width: 100%;
+            padding-top: 100px;
+            position: relative;
+            z-index: 9;
+            background-color: #ffffff;
+        }
+
+        .page3 h1 {
+            font-size: 6.8vw;
+            font-weight: 300;
+            color: #111;
+            margin-left: 100px;
+        }
+
+        .page3-part1 {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+
+        }
+
+        .page3-part1 img {
+            height: 400px;
+            margin-top: 160px;
+        }
+
+        .page3-part1 video {
+            height: 400px;
+            margin-top: 40px;
+        }
+
+        .page4 {
+            min-height: 100vh;
+            width: 100%;
+            z-index: 9;
+            position: relative;
+            padding: 170px 100px;
+            background-color: #d185fa;
+        }
+
+        .elem {
+            /* background-color: salmon; */
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .elem img {
+            position: absolute;
+            opacity: 0;
+            transition: all ease-out 0.5s;
+            transform: translateY(10%) rotate(2deg);
+        }
+
+        .elem img:nth-child(1) {
+            left: 2%;
+        }
+
+        .elem img:nth-child(3) {
+            right: 5%;
+        }
+
+        .text-div {
+            height: 16vh;
+            position: relative;
+            z-index: 9;
+            overflow: hidden;
+        }
+
+        .elem h1 {
+            font-size: 7.5vw;
+            font-weight: 600;
+            transition: all ease-out 0.5s;
+        }
+
+        .elem:hover h1 {
+            transform: translateY(-100%);
+            color: #EDBFFF;
+        }
+
+        .elem:hover img {
+            opacity: 1;
+            transform: translateY(0%) rotate(0deg);
+
+        }
+
+
+
+
+        .box:nth-last-child(1) {
+            border-bottom: 2px solid #dadada;
+
+        }
+
+        .page6 {
+            min-height: 100vh;
+            width: 100%;
+            background-color: #ca7aff;
+            position: relative;
+        }
+
+        .image-wrapper {
+            position: relative;
+            /* Relative to .page6 */
+            width: 100%;
+            height: 100%;
+        }
+
+        .image-wrapper img {
+            width: calc(100vw * 2.5);
+            /* Image spans 2.5x the viewport width */
+            height: auto;
+            object-fit: cover;
+            position: absolute;
+            left: 0;
+        }
+
+
+
+        footer {
+            height: 90vh;
+            width: 100%;
+            background-color: #EDBFFF;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+
+        @media (max-width: 768px) {
+            .main_footer__container {
+                grid-template-columns: 1fr;
+                /* Stack columns on smaller screens */
+            }
+        }
+    </style>
+
+
+</head>
+
+<body>
+    <div class="cursor"></div>
+
+
+    <div id="preloader">
+        <img src="images/maybe_preloader.gif" alt=" "> <!-- Replace with your GIF URL -->
+    </div>
+
+    <header>
+        <div class="logo">
+            <img src="images/logo.png">
+
+        </div>
+
+        <nav>
+            <ul>
+                <li><a href="landing.html">Home</a></li>
+                <li>
+                    <a href="#categories">Categories</a>
+                    <div class="dropdown">
+                        <div class="dropdown-item"><a href="care_women.html">Care</a></div>
+                        <div class="dropdown-item"><a href="nursing.html">Nursing</a></div>
+                        <div class="dropdown-item"><a href="personal_women.html">Personal Hygiene</a></div>
+                        <div class="dropdown-item"><a href="craving.html">Cravings</a></div>
+                    </div>
+
+                </li>
+                <li><a href="faqs_women.html">FAQs</a></li>
+                 <li><a href="maps.html">Maps</a></li>
+                <li><a href="about_us.html">About Us</a></li>
+                <li><a href="blogs_women.html">Blogs</a></li>
+                <li><a href="cart.html">Cart</a></li>
+            </ul>
+        </nav>
+
+        <nav>
+            <ul>
+                <li><a href="landing.html">Women</a></li>
+                <li><a href="baby_homepage.html">Infants</a></li>
+            </ul>
+        </nav>
+
+    </header>
+
+
+
+
+    </div>
+    <div class="main">
+        <div class="page1">
+
+            <h1>Where Joy</h1>
+            <h2>meets motherhood</h2>
+            <video autoplay muted loop src="images/assets/boss_baby.mp4"></video>
+        </div>
+        <div class="page2">
+            <h1>We are Mumsie,</h1>
+            <div class="page2-container">
+                <div class="page2-left">
+                    <h2>MOTHERHOOD REIMAGINED:
+                        SUPPORT
+                        CARE
+                        CONNECTION
+                        HEALING</h2>
+                </div>
+                <div class="page2-right">
+                    <p>We transform motherhood journeys through innovative digital solutions, offering personalized
+                        support, expert resources, and a global community that empowers mothers from first steps to
+                        lasting connections.</p>
+                    <button>About us</button>
+                </div>
+            </div>
+            <iframe src="https://cdn.botpress.cloud/webchat/v2.2/shareable.html?configUrl=https://files.bpcontent.cloud/2025/03/07/03/20250307035010-9ZRSC47O.json" 
+    style="position: fixed; 
+    bottom: 20px; 
+    right: 20px; 
+    width: 350px; 
+    height: 500px; 
+    border: none; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+    border-radius: 10px; 
+    z-index: 1000;">
+</iframe>
+
+        </div>
+        <div class="page3">
+            <h1>Selected Works</h1>
+            <div class="page3-part1">
+                <img src="images/assets/oneImg.png" alt="">
+                <video autoplay loop muted src="images/assets/Untitled design (8).mp4"></video>
+            </div>
+        </div>
+        <div class="page4">
+            <div class="elem">
+                <img src="images/assets/firstimg (2).png" alt="">
+                <div class="text-div">
+                    <h1>Healthcare</h1>
+                    <h1>Healthcare</h1>
+                </div>
+                <img src="images/assets/firstRight.png" alt="">
+            </div>
+            <div class="elem">
+                <img src="images/assets/second.png" alt="">
+                <div class="text-div">
+                    <h1>Essentials</h1>
+                    <h1>Essentials</h1>
+                </div>
+                <img src="images/assets/secondRight.png" alt="">
+            </div>
+            <div class="elem">
+                <img src="images/assets/third.png" alt="">
+                <div class="text-div">
+                    <h1>Community</h1>
+                    <h1>Community</h1>
+                </div>
+                <img src="images/assets/thirdRight.png" alt="">
+            </div>
+
+        </div>
+        <div class="page5">
+            <h2>Our Trusted Clients</h2>
+            <div class="box"
+                data-image="https://plus.unsplash.com/premium_photo-1676400362113-146a1660d7dc?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8bmV3Ym9ybiUyMGJhYnklMjBsaWxhY3xlbnwwfHwwfHx8MA%3D%3D">
+                <h3>Baby Bliss</h3>
+                <h4>2025</h4>
+            </div>
+            <div class="box"
+                data-image="https://plus.unsplash.com/premium_photo-1680740103875-048f39fe05d7?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D">
+                <h3>Mommy Care</h3>
+                <h4>2025</h4>
+            </div>
+            <div class="box"
+                data-image="https://plus.unsplash.com/premium_photo-1661315453349-0cfd1fa0e1c0?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8bmV3Ym9ybiUyMGNvbWZvcnR8ZW58MHx8MHx8fDA%3D">
+                <h3>Newborn Comfort</h3>
+                <h4>2025</h4>
+            </div>
+            <div class="box"
+                data-image="https://plus.unsplash.com/premium_photo-1661274027494-1d556441e1c4?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8bW90aGVyfGVufDB8fDB8fHww">
+                <h3>Parenting Advice</h3>
+                <h4>2025</h4>
+            </div>
+            <div class="box"
+                data-image="https://plus.unsplash.com/premium_photo-1678000616456-fb837dea2776?q=80&w=1935&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D">
+                <h3>Mumsie FAQs</h3>
+                <h4>2025</h4>
+            </div>
+        </div>
+        <div class="page6">
+            <div class="image-wrapper">
+                <img src="images/assets/Nurturing motherhood, together with (1).png" alt="Placeholder Image" />
+            </div>
+
+        </div>
+
+        <footer>
+            <p>&copy; 2025 New Mom & Infant Essentials</p>
+        </footer>
+
+
+    </div>
+
+<script>
+    
+        // Wait for the window to load
+        window.onload = function () {
+            // Set a delay for the preloader to remain visible
+            setTimeout(function () {
+                // Hide the preloader
+                const preloader = document.getElementById('preloader');
+                preloader.style.display = 'none';
+            }, 1400); // Change 3000 to the desired time in milliseconds (3000ms = 3 seconds)
+        };
+</script>
+<script>
+    // Chatbot Toggle Logic
+    const chatbot = document.getElementById('chatbot');
+    const toggleButton = document.getElementById('toggle-button');
+
+    toggleButton.addEventListener('click', function() {
+        chatbot.classList.toggle('active');
+        toggleButton.classList.toggle('expanded');
+        toggleButton.textContent = chatbot.classList.contains('active') 
+            ? '-' 
+            : '+';
+    });
+</script>
+    <script>
+        function init() {
+            gsap.registerPlugin(ScrollTrigger);
+
+            const locoScroll = new LocomotiveScroll({
+                el: document.querySelector(".main"),
+                smooth: true
+            });
+            locoScroll.on("scroll", ScrollTrigger.update);
+
+            ScrollTrigger.scrollerProxy(".main", {
+                scrollTop(value) {
+                    return arguments.length ? locoScroll.scrollTo(value, 0, 0) : locoScroll.scroll.instance.scroll.y;
+                }, // we don't have to define a scrollLeft because we're only scrolling vertically.
+                getBoundingClientRect() {
+                    return { top: 0, left: 0, width: window.innerWidth, height: window.innerHeight };
+                },
+                pinType: document.querySelector(".main").style.transform ? "transform" : "fixed"
+            });
+
+
+            ScrollTrigger.addEventListener("refresh", () => locoScroll.update());
+
+            ScrollTrigger.refresh();
+
+        }
+
+        init()
+
+        var crsr = document.querySelector(".cursor")
+        var main = document.querySelector(".main")
+        document.addEventListener("mousemove", function (dets) {
+            crsr.style.left = dets.x + 20 + "px"
+            crsr.style.top = dets.y + 20 + "px"
+        })
+
+        gsap.from(".page1 h1,.page1 h2", {
+            y: 10,
+            rotate: 10,
+            opacity: 0,
+            delay: 0.3,
+            duration: 0.7
+        })
+        var tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: ".page1 h1",
+                scroller: ".main",
+                // markers:true,
+                start: "top 27%",
+                end: "top 0",
+                scrub: 3
+            }
+        })
+        tl.to(".page1 h1", {
+            x: -100,
+        }, "anim")
+        tl.to(".page1 h2", {
+            x: 100
+        }, "anim")
+        tl.to(".page1 video", {
+            width: "90%"
+        }, "anim")
+
+        var tl2 = gsap.timeline({
+            scrollTrigger: {
+                trigger: ".page1 h1",
+                scroller: ".main",
+                // markers:true,
+                start: "top -115%",
+                end: "top -120%",
+                scrub: 3
+            }
+        })
+        tl2.to(".main", {
+            backgroundColor: "#fff",
+        })
+
+        var tl3 = gsap.timeline({
+            scrollTrigger: {
+                trigger: ".page1 h1",
+                scroller: ".main",
+                // markers:true,
+                start: "top -280%",
+                end: "top -300%",
+                scrub: 3
+            }
+        })
+
+        tl3.to(".main", {
+            backgroundColor: "#fff"
+        })
+
+
+        var boxes = document.querySelectorAll(".box")
+        boxes.forEach(function (elem) {
+            elem.addEventListener("mouseenter", function () {
+                var att = elem.getAttribute("data-image")
+                crsr.style.width = "470px"
+                crsr.style.height = "370px"
+                crsr.style.borderRadius = "0"
+                crsr.style.backgroundImage = `url(${att})`
+            })
+            elem.addEventListener("mouseleave", function () {
+                elem.style.backgroundColor = "transparent"
+                crsr.style.width = "20px"
+                crsr.style.height = "20px"
+                crsr.style.borderRadius = "50%"
+                crsr.style.backgroundImage = `none`
+            })
+        })
+
+        var h4 = document.querySelectorAll("#nav h4")
+        var purple = document.querySelector("#purple")
+        h4.forEach(function (elem) {
+            elem.addEventListener("mouseenter", function () {
+                purple.style.display = "block"
+                purple.style.opacity = "0"
+            })
+            elem.addEventListener("mouseleave", function () {
+                purple.style.display = "none"
+                purple.style.opacity = "0"
+            })
+        })
+
+
+
+
+        gsap.to(".page6 .image-wrapper", {
+            x: "-150%", // Move the image horizontally
+            scrollTrigger: {
+                trigger: ".page6", // Trigger animation on `.page6`
+                scroller: ".main", // Locomotive's scroll container
+                start: "top -30%", // When `.page6` hits the top of the viewport
+                end: "bottom top", // When `.page6` leaves the viewport
+                scrub: 2, // Smooth scroll-based animation
+                pin: true, // Pin `.page6` during the animation
+                //markers: true, // Optional: Debug with markers
+            },
+        });
+
+
+
+    </script>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/locomotive-scroll@3.5.4/dist/locomotive-scroll.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"
+        integrity="sha512-16esztaSRplJROstbIIdwX3N97V1+pZvV33ABoG1H2OyTttBxEGkTsoIVsiP1iaTtM8b3+hu2kB6pQ4Clr5yug=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"
+        integrity="sha512-Ic9xkERjyZ1xgJ5svx3y0u3xrvfT/uPkV99LBwe68xjy/mGtO+4eURHZBW2xW4SZbFrF1Tf090XqB+EVgXnVjw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="landing.js"></script>
+</body>
+
+</html>

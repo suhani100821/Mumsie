@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Infant Essentials</title>
+    <style>
+        body {
+            background-color: #F9F9F9;
+        }
+
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #F9F9F9;
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        #preloader img {
+            width: 700px;
+            height: auto;
+        }
+        .chatbot {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 300px;
+            height: 400px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            display: none;
+            /* Start hidden by default */
+        }
+
+        .chatbot.active {
+            display: block;
+            /* Show when active */
+        }
+
+        .chatbot iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .toggle-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 10px 15px;
+            cursor: pointer;
+            z-index: 1001;
+            transition: right 0.3s ease;
+        }
+
+        .toggle-button.expanded {
+            right: 350px;
+            /* Adjust position when chatbot is visible */
+        }
+
+        body {
+            font-family: sans-serif;
+            margin: 0;
+        }
+
+        header {
+            background-color: #F9D6B8;
+            padding: 10px 0;
+        }
+
+        .logo img {
+            width: 200px;
+            height: auto;
+        }
+
+        nav {
+            margin: 10px 0;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            position: relative;
+        }
+
+        nav li {
+            margin: 0 15px;
+            position: relative;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #333333;
+        }
+
+        nav ul li a:hover {
+            text-decoration: underline;
+        }
+
+        .dropdown {
+            display: none;
+            position: absolute;
+            left: 0;
+            top: 100%;
+            background: #F9F9F9;
+            border: 1px solid #ccc;
+            z-index: 1000;
+            width: 200px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        nav ul li:hover .dropdown {
+            display: block;
+        }
+
+        .dropdown-item {
+            display: block;
+            padding: 10px;
+            border-bottom: 1px solid #F9F9F9;
+            color: #333333;
+            text-decoration: none;
+        }
+
+        .dropdown-item:last-child {
+            border-bottom: none;
+        }
+
+        .dropdown-item:hover {
+            background: #D1C6E1;
+        }
+
+        .hero {
+            background-color: #f2bedf;
+            text-align: center;
+            padding: 50px 0;
+        }
+
+        .hero h1 {
+            font-size: 3em;
+        }
+
+        .hero p {
+            margin-top: 20px;
+        }
+
+        .second-nav {
+            border-top: 2px solid #ccc;
+            padding-top: 10px;
+        }
+
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            padding: 30px;
+        }
+
+        .product-card {
+            background: #FFFFFF;
+            border: 1px solid #E0E0E0;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .product-card:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-card img {
+            width: 100px;
+            height: auto;
+            margin-bottom: 10px;
+        }
+
+        .product-card h2 {
+            font-size: 1.5em;
+            color: #FF7596;
+        }
+
+        .product-card p {
+            font-size: 1em;
+            color: #666666;
+            margin-bottom: 15px;
+        }
+
+        .product-card button {
+            background-color: #FF9BB7;
+            color: #FFFFFF;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background 0.3s;
+        }
+
+        .product-card button:hover {
+            background-color: #FF7596;
+        }
+
+        footer {
+            background-color: #F9D6B8;
+            color: #000000;
+            text-align: center;
+            padding: 15px 0;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="preloader">
+        <img src="images/comfort_preloader.gif" alt="Loading...">
+    </div>
+
+    <header>
+        <div class="logo">
+            <img src="images/logo.png">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="baby_homepage.html">Home</a></li>
+                <li>
+                    <a href="categories">Categories</a>
+                    <div class="dropdown">
+                        <a class="dropdown-item" href="care.html">Care</a>
+                        <a class="dropdown-item" href="toys.html">Toys</a>
+                    </div>
+                </li>
+                <li><a href="faqs_infants.html">FAQs</a></li>
+                <li><a href="maps.html">Maps</a></li>
+                <li><a href="about_us.html">About Us</a></li>
+                <li><a href="blogs_infants.html">Blogs</a></li>
+                <li><a href="cart.html">Cart</a></li>
+            </ul>
+        </nav>
+        <nav>
+            <ul>
+                <li><a href="landing.html">Women</a></li>
+                <li><a href="baby_homepage.html">Infants</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="text-center">
+        <a href="cart.html" class="btn btn-success">Go to Cart</a>
+    </div>
+
+    <div id="root"></div>
+
+    <div class="modal fade" id="cartModal" tabindex="-1" role="dialog" aria-labelledby="cartModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="cartModalLabel">Item Added to Cart</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p id="cartMessage"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+<!-- Chatbot Widget -->
+<div class="chatbot" id="chatbot">
+    <iframe
+        src="https://cdn.botpress.cloud/webchat/v2.2/shareable.html?configUrl=https://files.bpcontent.cloud/2025/03/07/03/20250307035010-9ZRSC47O.json"
+        title="Botpress Chatbot">
+    </iframe>
+</div>
+<button class="toggle-button" id="toggle-button">+</button>
+    <footer>
+        <p>&copy; 2025 New Mom & Infant Essentials</p>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+
+
+    <script>
+        
+        // Chatbot Toggle Logic
+        const chatbot = document.getElementById('chatbot');
+        const toggleButton = document.getElementById('toggle-button');
+
+        toggleButton.addEventListener('click', function () {
+            chatbot.classList.toggle('active');
+            toggleButton.classList.toggle('expanded');
+            toggleButton.textContent = chatbot.classList.contains('active')
+                ? '-'
+                : '+';
+        });
+    
+    </script>
+    <script>
+        window.onload = function () {
+            setTimeout(function () {
+                document.getElementById('preloader').style.display = 'none';
+            }, 1000);
+        };
+
+        const productsData = [
+            { id: 1, name: 'Himalaya Baby Powder', image: 'images/baby.powder.jpg', category: 'new', price: 8.00 },
+            { id: 2, name: 'Parachute Baby Oil', image: 'images/baby.oil.jpg', category: 'most bought', price: 12.00 },
+            { id: 3, name: 'Chicco Baby Shampoo', image: 'images/baby.shampoo.jpg', category: 'combos', price: 15.00 },
+            { id: 4, name: 'Softsens Baby lotion', image: 'images/baby.lotion.jpg', category: 'new', price: 10.00 },
+            { id: 5, name: 'Littles Baby Wipes', image: 'images/baby.wipes.jpg', category: 'most bought', price: 9.00 },
+            { id: 6, name: 'Mammy Poko pants Diapers', image: 'images/baby.diapers.jpg', category: 'combos', price: 20.00 },
+            { id: 7, name: 'Baby Blanket', image: 'images/baby.blanket.jpg', category: 'new', price: 18.00 },
+            { id: 8, name: 'Baby Bib', image: 'images/baby.bib.jpg', category: 'most bought', price: 5.00 },
+            { id: 9, name: 'Baby Pacifier', image: 'images/baby.pacifier.jpg', category: 'combos', price: 6.00 },
+            { id: 10, name: 'Dove Baby Soap', image: 'images/baby.soap.jpg', category: 'new', price: 7.00 },
+            { id: 11, name: 'Baby Bottle', image: 'images/baby.bottle.jpg', category: 'most bought', price: 11.00 },
+            { id: 12, name: 'Baby Thermometer', image: 'images/baby.thermometer.jpg', category: 'combos', price: 13.00 },
+            { id: 13, name: 'Baby Nail Clippers', image: 'images/baby.nail.cutter.jpg', category: 'new', price: 4.00 },
+            { id: 14, name: 'Baby Carrier', image: 'images/baby.carrier.jpg', category: 'most bought', price: 25.00 },
+            { id: 15, name: 'Baby High Chair', image: 'images/baby.highchair.jpg', category: 'combos', price: 30.00 },
+            { id: 16, name: 'Baby Monitor', image: 'images/baby.monitor.jpg', category: 'new', price: 35.00 }
+        ];
+
+        function ProductCard({ product, addToCart }) {
+            return React.createElement('div', { className: 'product-card' },
+                React.createElement('img', { src: product.image, alt: product.name, style: { width: '180px', height: 'auto' } }),
+                React.createElement('h2', null, product.name),
+                React.createElement('p', null, `Price: $${product.price.toFixed(2)}`),
+                React.createElement('button', { className: 'btn btn-primary', onClick: () => addToCart(product.name, product.price) }, 'Add to Cart')
+            );
+        }
+
+        function ProductList() {
+            const [products, setProducts] = React.useState(productsData);
+            const [filter, setFilter] = React.useState('all');
+            const [searchTerm, setSearchTerm] = React.useState('');
+            const [sortOrder, setSortOrder] = React.useState('none');
+
+            const handleFilterChange = (newFilter) => {
+                setFilter(newFilter);
+            };
+
+            const handleSearchChange = (event) => {
+                setSearchTerm(event.target.value);
+            };
+
+            const handleSortChange = (newSortOrder) => {
+                setSortOrder(newSortOrder);
+            };
+
+            const filteredProducts = React.useMemo(() => {
+                let filtered = productsData;
+
+                if (filter !== 'all') {
+                    filtered = filtered.filter(product => product.category === filter);
+                }
+
+                if (searchTerm) {
+                    filtered = filtered.filter(product =>
+                        product.name.toLowerCase().includes(searchTerm.toLowerCase())
+                    );
+                }
+
+                return filtered;
+            }, [filter, searchTerm]);
+
+            const sortedProducts = React.useMemo(() => {
+                let sorted = [...filteredProducts];
+
+                if (sortOrder === 'lowToHigh') {
+                    sorted.sort((a, b) => a.price - b.price);
+                } else if (sortOrder === 'highToLow') {
+                    sorted.sort((a, b) => b.price - a.price);
+                }
+
+                return sorted;
+            }, [filteredProducts, sortOrder]);
+
+            const addToCart = (productName, price) => {
+                var cartArray = JSON.parse(localStorage.getItem('shopping-cart')) || [];
+                var product = { productName: productName, price: price, quantity: 1 };
+                cartArray.push(product);
+                localStorage.setItem('shopping-cart', JSON.stringify(cartArray));
+                document.getElementById('cartMessage').innerText = productName + ' has been added to your cart!';
+                $('#cartModal').modal('show');
+            };
+
+            return React.createElement('div', null,
+                React.createElement('div', { style: { textAlign: 'center', margin: '20px 0' } },
+                    React.createElement('input', {
+                        type: 'text',
+                        placeholder: 'Search products...',
+                        value: searchTerm,
+                        onChange: handleSearchChange,
+                        className: 'form-control mb-2',
+                        style: { maxWidth: '300px', margin: '0 auto' }
+                    }),
+                    React.createElement('div', { className: 'btn-group' },
+                        React.createElement('button', {
+                            className: `btn ${filter === 'all' ? 'active' : 'inactive'} mr-1`,
+                            onClick: () => handleFilterChange('all'),
+                            style: {
+                                backgroundColor: filter === 'all' ? '#FF9BB7' : '#f0f0f0',
+                                border: 'none',
+                                outline: 'none',
+                                boxShadow: 'none',
+                                color: '#333'
+                            }
+                        }, 'All'),
+                        React.createElement('button', {
+                            className: `btn ${filter === 'new' ? 'active' : 'inactive'} mr-1`,
+                            onClick: () => handleFilterChange('new'),
+                            style: {
+                                backgroundColor: filter === 'new' ? '#FF9BB7' : '#f0f0f0',
+                                border: 'none',
+                                outline: 'none',
+                                boxShadow: 'none',
+                                color: '#333'
+                            }
+                        }, 'New'),
+                        React.createElement('button', {
+                            className: `btn ${filter === 'most bought' ? 'active' : 'inactive'} mr-1`,
+                            onClick: () => handleFilterChange('most bought'),
+                            style: {
+                                backgroundColor: filter === 'most bought' ? '#FF9BB7' : '#f0f0f0',
+                                border: 'none',
+                                outline: 'none',
+                                boxShadow: 'none',
+                                color: '#333'
+                            }
+                        }, 'Most Bought'),
+                        React.createElement('button', {
+                            className: `btn ${filter === 'combos' ? 'active' : 'inactive'} mr-1`,
+                            onClick: () => handleFilterChange('combos'),
+                            style: {
+                                backgroundColor: filter === 'combos' ? '#FF9BB7' : '#f0f0f0',
+                                border: 'none',
+                                outline: 'none',
+                                boxShadow: 'none',
+                                color: '#333'
+                            }
+                        }, 'Combos'),
+                        React.createElement('button', {
+                            className: `btn ${sortOrder === 'none' ? 'active' : 'inactive'} mr-1`,
+                            onClick: () => handleSortChange('none'),
+                            style: {
+                                backgroundColor: sortOrder === 'none' ? '#FF9BB7' : '#f0f0f0',
+                                border: 'none',
+                                outline: 'none',
+                                boxShadow: 'none',
+                                color: '#333'
+                            }
+                        }, 'Sort'),
+                        React.createElement('button', {
+                            className: `btn ${sortOrder === 'lowToHigh' ? 'active' : 'inactive'} mr-1`,
+                            onClick: () => handleSortChange('lowToHigh'),
+                            style: {
+                                backgroundColor: sortOrder === 'lowToHigh' ? '#FF9BB7' : '#f0f0f0',
+                                border: 'none',
+                                outline: 'none',
+                                boxShadow: 'none',
+                                color: '#333'
+                            }
+                        }, 'Low to High'),
+                        React.createElement('button', {
+                            className: `btn ${sortOrder === 'highToLow' ? 'active' : 'inactive'} mr-1`,
+                            onClick: () => handleSortChange('highToLow'),
+                            style: {
+                                backgroundColor: sortOrder === 'highToLow' ? '#FF9BB7' : '#f0f0f0',
+                                border: 'none',
+                                outline: 'none',
+                                boxShadow: 'none',
+                                color: '#333'
+                            }
+                        }, 'High to Low')
+                    )
+                ),
+                React.createElement('div', { className: 'products' },
+                    sortedProducts.map(product =>
+                        React.createElement(ProductCard, { key: product.id, product: product, addToCart: addToCart })
+                    )
+                ),
+                React.createElement('div', { className: 'text-center' },
+                    React.createElement('a', { href: 'cart.html', className: 'btn btn-success' }, 'Go to Cart')
+                )
+            );
+        }
+
+        ReactDOM.render(React.createElement(ProductList), document.getElementById('root'));
+    </script>
+</body>
+
+</html>

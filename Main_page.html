@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Start Screen</title>
+    <style>
+        body {
+            background-color: #FFF8DC; /* Background color */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* Full height */
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        
+        .button-container {
+            display: flex;
+            gap: 110px;
+        }
+        .button {
+            background-color: #FFB6C1; /* Pastel pink */
+            color: rgb(0, 0, 0);
+            border: none;
+            border-radius: 5px;
+            padding: 15px 30px;
+            font-size: 40px;
+            cursor: pointer;
+            transition: transform 0.3s, filter 0.3s; /* Transition for zoom and blur */
+        }
+        .button:hover {
+            transform: scale(1.1); /* Zoom in on hover */
+            filter: none; /* Remove blur on hover */
+        }
+        .button-container .button:not(:hover) {
+            filter: blur(2px); /* Blur non-hovered buttons */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="button-container">
+        <button class="button" onclick="window.location.href='landing.html'">New Mom</button>
+        <button class="button" onclick="window.location.href='baby_homepage.html'">Infant</button>
+    </div>
+
+</body>
+</html>

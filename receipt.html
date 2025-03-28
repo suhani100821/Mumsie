@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <title>Receipt</title>
+    <style>
+        body {
+            background-color: #FFF5E1;
+        }
+
+
+
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #F9F9F9;
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        #preloader img {
+            width: 450px;
+            height: auto;
+        }
+
+        body {
+            font-family: sans-serif;
+            margin: 0;
+        }
+
+        header {
+            background-color: #FFF5E1;
+            padding: 10px 0;
+        }
+
+        .logo img {
+            width: 200px;
+            height: auto;
+        }
+
+        nav {
+            margin: 10px 0;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            margin-top: -80px;
+            margin-bottom: 100px;
+            position: relative;
+            height: 30px;
+        }
+
+        nav li {
+            margin: 0 15px;
+            position: relative;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #333333;
+        }
+
+        nav ul li a:hover {
+            text-decoration: underline;
+        }
+
+        .dropdown {
+            display: none;
+            position: absolute;
+            left: 0;
+            top: 100%;
+            background: #ffc0cb;
+            border: 1px solid #000000;
+            z-index: 1000;
+            width: 200px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        nav ul li:hover .dropdown {
+            display: block;
+        }
+
+        .dropdown-item {
+            padding: 10px;
+            border-bottom: 1px solid #ffc0cb;
+            color: #333333;
+        }
+
+        .dropdown-item:last-child {
+            border-bottom: none;
+        }
+
+        .dropdown-item:hover {
+            background: #dc91ff;
+        }
+
+        .hero {
+            background-color: #F8C8D2;
+            text-align: center;
+            padding: 50px 0;
+        }
+
+        .hero h1 {
+            font-size: 3em;
+        }
+
+        .hero p {
+            margin-top: 20px;
+        }
+
+        .second-nav {
+            border-top: 2px solid #000000;
+            padding-top: 10px;
+        }
+
+        .button-container {
+            display: flex;
+            gap: 110px;
+        }
+        .button {
+            background-color: #FFB6C1; /* Pastel pink */
+            color: rgb(0, 0, 0);
+            border: none;
+            border-radius: 5px;
+            padding: 15px 30px;
+            font-size: 20px;
+            cursor: pointer;
+            margin:auto;
+            transition: transform 0.3s, filter 0.3s; /* Transition for zoom and blur */
+            
+        }
+        .button:hover {
+            transform: scale(1.1); /* Zoom in on hover */
+            filter: none; /* Remove blur on hover */
+        }
+        .button-container .button:not(:hover) {
+            filter: blur(2px); /* Blur non-hovered buttons */
+        }
+
+        .receipt-container {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            margin-top: 30px;
+        }
+
+        h2 {
+            color: #ff69b4;
+            margin-bottom: 25px;
+        }
+
+        footer {
+            background-color: #FFF5E1;
+            color: #000000;
+            text-align: center;
+            padding: 10px 0;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+
+    </style>
+</head>
+<body>
+   
+
+    <div class="container">
+        <div class="receipt-container">
+            <h2>Order Receipt</h2>
+            <div id="productList"></div>
+            <hr>
+            <h4>Total: <span id="grandTotal">₹0.00</span></h4>
+        </div>
+    </div>
+    <br><br>
+    <div class="button-container" >
+       <button class="button" onclick="window.location.href='Main_page.html'">Go back to Shopping</button> 
+       </div> 
+    <footer>
+        <p class="text-center mt-4">&copy; 2025 New Mom & Infant Essentials</p>
+    </footer>
+
+    <script>
+        $(document).ready(function () {
+            showReceipt();
+        });
+
+        function showReceipt() {
+            var cartRowHTML = "";
+            var grandTotal = 0;
+            var cartArray = JSON.parse(localStorage.getItem('shopping-cart')) || [];
+
+            cartArray.forEach(function (item) {
+                var subTotal = item.price * item.quantity;
+                cartRowHTML += `<div>
+                                    <strong>${item.productName}</strong> - $${item.price.toFixed(2)} x ${item.quantity} = $${subTotal.toFixed(2)}
+                                </div>`;
+                grandTotal += subTotal;
+            });
+
+            $('#productList').html(cartRowHTML);
+            $('#grandTotal').text(`$${grandTotal.toFixed(2)}`);
+        }
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>MumPay! - Payment Request</title>
+    <meta name="theme-color" content="#75ff70">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="./mumpay.css">
+    <link href="./assets/logo.jpg" rel="shortcut icon" type="image/x-icon">
+    <link href="./assets/logo.jpg" rel="apple-touch-icon">
+</head>
+
+<body>
+    <div class="payBox">
+        <div class="title">
+            <h1>MumPay!</h1>
+            <i>Still hmmm while asking for payments? Create yours <a href="./mumpay.html">MumPay</a>!</i>
+        </div>
+        <div class="qr">
+            <img id="qr"
+                src="https://api.qrserver.com/v1/create-qr-code/?data=https%3A%2F%2Fhmmm.eu.org&size=400x400&color=222-49-99&bgcolor=1a1a1a">
+        </div>
+        <div class="details">
+            <i id="details" spellcheck="false">How To
+                Use<span id="url"><br>http://127.0.0.1:5500/mumpay.html?upi=<b contenteditable="true">yourupi@upi</b>&amount=<b contenteditable="true">30.00</b>&message=<b contenteditable="true">MumPay</b><br>you can click to edit</i></span>
+        </div>
+        <div class="button">
+            <div id="button" onclick="upiOpen()">Open Upi App</div>
+            <div id="button" onclick="havePaid()">I Have Paid</div>
+        </div>
+        <div class="footer">
+            <i>©Copyright & reservers 2025 ~ MumPay Made by <b> Mumsie</b></i>
+        </div>
+    </div>
+    <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+    <script src="./mumpay.js" async defer></script>
+</body>
+
+</html>

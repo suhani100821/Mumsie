@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infant Essentials</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #F9F9F9;
+        }
+
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #F9F9F9;
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        #preloader img {
+            width: 700px;
+            height: auto;
+        }
+/* Chatbot Styles */
+.chatbot {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        width: 300px;
+        height: 400px;
+        border-radius: 10px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        overflow: hidden;
+        z-index: 1000;
+        transition: all 0.3s ease;
+        display: none; /* Start hidden by default */
+    }
+
+    .chatbot.active {
+        display: block; /* Show when active */
+    }
+
+    .chatbot iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+    }
+
+    .toggle-button {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 50px;
+        padding: 10px 15px;
+        cursor: pointer;
+        z-index: 1001;
+        transition: right 0.3s ease;
+    }
+
+    .toggle-button.expanded {
+        right: 350px; /* Adjust position when chatbot is visible */
+    }
+        body {
+            font-family: sans-serif;
+            margin: 0;
+        }
+
+        header {
+            background-color: #F9D6B8;
+            padding: 10px 0;
+        }
+
+        .logo img {
+            width: 320px;
+            height: auto;
+        }
+
+        nav {
+            margin: 10px 0;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            position: relative;
+        }
+
+        nav li {
+            margin: 0 15px;
+            position: relative;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #333333;
+        }
+
+        nav ul li a:hover {
+            text-decoration: underline;
+        }
+
+        .dropdown {
+            display: none;
+            position: absolute;
+            left: 0;
+            top: 100%;
+            background: #F9F9F9;
+            border: 1px solid #ccc;
+            z-index: 1000;
+            width: 200px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        nav ul li:hover .dropdown {
+            display: block;
+        }
+
+        .dropdown-item {
+            display: block;
+            padding: 10px;
+            border-bottom: 1px solid #F9F9F9;
+            color: #333333;
+            text-decoration: none;
+        }
+
+        .dropdown-item:last-child {
+            border-bottom: none;
+        }
+
+        .dropdown-item:hover {
+            background: #D1C6E1;
+        }
+
+        .hero {
+            background-color: #f2bedf;
+            text-align: center;
+            padding: 50px 0;
+        }
+
+        .hero h1 {
+            font-size: 3em;
+        }
+
+        .hero p {
+            margin-top: 20px;
+        }
+
+        .second-nav {
+            border-top: 2px solid #ccc;
+            padding-top: 10px;
+        }
+
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            padding: 30px;
+        }
+
+        .product-card {
+            background: #FFFFFF;
+            border: 1px solid #E0E0E0;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .product-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-card img {
+            width: 100px;
+            height: auto;
+            margin-bottom: 10px;
+        }
+
+        .product-card h2 {
+            font-size: 1.5em;
+            color: #FF7596;
+        }
+
+        .product-card p {
+            font-size: 1em;
+            color: #666666;
+            margin-bottom: 15px;
+        }
+
+        .product-card button {
+            background-color: #FF9BB7;
+            color: #FFFFFF;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background 0.3s;
+        }
+
+        .product-card button:hover {
+            background-color: #FF7596;
+        }
+
+        footer {
+            background-color: #F9D6B8;
+            color: #000000;
+            text-align: center;
+            padding: 15px 0;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="preloader">
+        <img src="images/toys_preloader.gif" alt="Loading...">
+    </div>
+    <header>
+        <div class="logo">
+            <img src="images/logo.png" alt="Logo">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="baby_homepage.html">Home</a></li>
+                <li>
+                    <a href="categories">Categories</a>
+                    <div class="dropdown">
+                        <div class="dropdown-item"><a href="care.html">Care</a></div>
+                        <div class="dropdown-item"><a href="toys.html">Toys</a></div>
+                    </div>
+                </li>
+                <li><a href="faqs_infants.html">FAQs</a></li>
+                <li><a href="maps.html">Maps</a></li>
+                <li><a href="about_us.html">About Us</a></li>
+                <li><a href="blogs_infants.html">Blogs</a></li>
+                <li><a href="cart.html">Cart</a></li>
+            </ul>
+        </nav>
+        <nav>
+            <ul>
+                <li><a href="landing.html">Women</a></li>
+                <li><a href="baby_homepage.html">Infants</a></li>
+            </ul>
+        </nav>
+    </header>
+    <!-- Chatbot Widget -->
+<div class="chatbot" id="chatbot">
+    <iframe 
+        src="https://cdn.botpress.cloud/webchat/v2.2/shareable.html?configUrl=https://files.bpcontent.cloud/2025/03/07/03/20250307035010-9ZRSC47O.json" 
+        title="Botpress Chatbot">
+    </iframe>
+</div>
+<button class="toggle-button" id="toggle-button">+</button>
+    <main id="root">
+        <div class="text-center">
+            <a href="cart.html" class="btn btn-success">Go to Cart</a>
+        </div>
+        <div class="products">
+            <div class="product-card">
+                <img src="images/baby.plush.jpg" alt="Soft Plush Toy" style="width: 180px; height: auto;">
+                <h2>Soft Plush Toy</h2>
+                <p>Adorable and cuddly plush toy for your baby's comfort.</p>
+                <p>Price: $15.00</p>
+                <button class="btn btn-primary" onclick="addToCart('Soft Plush Toy')">Add to Cart</button>
+
+            </div>
+            <div class="product-card">
+                <img src="images/baby.blocks.jpg" alt="Building Blocks" style="width: 200px; height: auto;">
+                <h2>Building Blocks</h2>
+                <p>Colorful building blocks to enhance your child's creativity.</p>
+                <button class="btn btn-primary" onclick="addToCart('Building blocks')">Add to Cart</button>
+            </div>
+            <div class="product-card">
+                <img src="images/baby.phone.jpg" alt="Musical Mobile" style="width: 150px; height: auto;">
+                <h2>Musical Mobile</h2>
+                <p>Engaging mobile with soothing music to calm your baby.</p>
+                <button class="btn btn-primary" onclick="addToCart('Musical mobile')">Add to Cart</button>
+            </div>
+            <div class="product-card">
+                <img src="images/baby.gym.jpg" alt="Activity Gym" style="width: 270px; height: auto;">
+                <h2>Activity Gym</h2>
+                <p>Interactive gym with toys to stimulate your baby's senses.</p>
+                <button class="btn btn-primary" onclick="addToCart('Activity Gym')">Add to Cart</button>
+            </div>
+            <div class="product-card">
+                <img src="images/baby.ring.jpg" alt="Teething Ring" style="width: 180px; height: auto;">
+                <h2>Teething Ring</h2>
+                <p>Safe and soothing teething ring for your baby's gums.</p>
+                <button class="btn btn-primary" onclick="addToCart('Teething ring')">Add to Cart</button>
+            </div>
+            <div class="product-card">
+                <img src="images/baby.bath.toy.jpg" alt="Bath Toys" style="width: 230px; height: auto;">
+                <h2>Bath Toys</h2>
+                <p>Fun and colorful toys to make bath time enjoyable.</p>
+                <button class="btn btn-primary" onclick="addToCart('Bath Toy')">Add to Cart</button>
+            </div>
+            <div class="product-card">
+                <img src="images/baby.cup.jpg" alt="Stacking Cups" style="width: 150px; height: auto;">
+                <h2>Stacking Cups</h2>
+                <p>Brightly colored cups for stacking and pouring fun.</p>
+                <button class="btn btn-primary" onclick="addToCart('Stacking Cups')">Add to Cart</button>
+            </div>
+            <div class="product-card">
+                <img src="images/baby.push.jpg" alt="Push and Pull Toy" style="width: 300px; height: auto">
+                <h2>Push and Pull Toy</h2>
+                <p>Encourages walking and coordination with fun sounds.</p>
+                <button class="btn btn-primary" onclick="addToCart('Push and pull toy')">Add to Cart</button>
+            </div>
+            <div class="product-card">
+                <img src="images/baby.musical.jpg" alt="Musical Toy" style="width: 220px; height: auto;">
+                <h2>Musical Toy</h2>
+                <p>Interactive toy that plays music and lights up.</p>
+                <button class="btn btn-primary" onclick="addToCart('Musical Toy')">Add to Cart</button>
+            </div>
+            <div class="product-card">
+                <img src="images/baby.mat.jpg" alt="Baby Play Mat" style="width: 250px; height: auto;">
+                <h2>Baby Play Mat</h2>
+                <p>Soft and colorful mat for tummy time and play.</p>
+                <button class="btn btn-primary" onclick="addToCart('Baby Play mat')">Add to Cart</button>
+            </div>
+            <div class="product-card">
+                <img src="images/baby.rattle.jpg" alt="Rattle Toy" style="width: 180px; height: auto;">
+                <h2>Rattle Toy</h2>
+                <p>Easy to grip rattle that stimulates your baby's senses.</p>
+                <button class="btn btn-primary" onclick="addToCart('Rattle Toy')">Add to Cart</button>
+            </div>
+            <div class="product-card">
+                <img src="images/baby.puzzle.jpg" alt="Puzzle Toy" style="width: 230px; height: auto;">
+                <h2>Puzzle Toy</h2>
+                <p>Fun and educational puzzle to develop problem-solving skills.</p>
+                <button class="btn btn-primary" onclick="addToCart('Puzzle Toy')">Add to Cart</button>
+            </div>
+            <div class="product-card">
+                <img src="images/baby.swing.jpg" alt="Baby Swing" style="width: 180px; height: auto;">
+                <h2>Baby Swing</h2>
+                <p>Comfortable swing for soothing your baby to sleep.</p>
+                <button class="btn btn-primary" onclick="addToCart('Bbay swing')">Add to Cart</button>
+            </div>
+            <div class="product-card">
+                <img src="images/baby.ball.jpg" alt="Colorful Ball" style="width: 200px; height: auto;">
+                <h2>Colorful Ball</h2>
+                <p>Soft and lightweight ball for rolling and throwing.</p>
+                <button class="btn btn-primary" onclick="addToCart('Colourful Ball')">Add to Cart</button>
+            </div>
+            <div class="product-card">
+                <img src="images/baby.animal.jpg" alt="Animal Figurines" style="width: 250px; height: auto;">
+                <h2>Animal Figurines</h2>
+                <p>Set of cute animal figurines for imaginative play.</p>
+                <button class="btn btn-primary" onclick="addToCart('Animal Figurines')">Add to Cart</button>
+            </div>
+            <div class="product-card">
+                <img src="images/baby.walker.jpg" alt="Baby Walker" style="width: 220px; height: auto;">
+                <h2>Baby Walker</h2>
+                <p>Sturdy walker to help your baby take their first steps.</p>
+                <button class="btn btn-primary" onclick="addToCart('Baby walker')">Add to Cart</button>
+            </div>
+        </div>
+        </div>
+       
+        <div class="modal fade" id="cartModal" tabindex="-1" role="dialog" aria-labelledby="cartModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="cartModalLabel">Item Added to Cart</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p id="cartMessage"></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2025 New Mom & Infant Essentials</p>
+    </footer>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+
+    <script>
+        // Wait for the window to load
+        window.onload = function () {
+            // Set a delay for the preloader to remain visible
+            setTimeout(function () {
+                // Hide the preloader
+                const preloader = document.getElementById('preloader');
+                preloader.style.display = 'none';
+            }, 1000); // Change 3000 to the desired time in milliseconds (3000ms = 3 seconds)
+        };
+    </script>
+<script>
+    // Chatbot Toggle Logic
+    const chatbot = document.getElementById('chatbot');
+    const toggleButton = document.getElementById('toggle-button');
+
+    toggleButton.addEventListener('click', function() {
+        chatbot.classList.toggle('active');
+        toggleButton.classList.toggle('expanded');
+        toggleButton.textContent = chatbot.classList.contains('active') 
+            ? '-' 
+            : '+';
+    });
+</script>
+    <script>
+        function addToCart(productName, price) {
+            var cartArray = JSON.parse(localStorage.getItem('shopping-cart')) || [];
+            var product = { productName: productName, price: price, quantity: 1 };
+            cartArray.push(product);
+            localStorage.setItem('shopping-cart', JSON.stringify(cartArray));
+            alert(productName + " has been added to your cart!");
+        }
+    </script>
+
+    <footer>
+        <p>&copy; 2025 New Mom & Infant Essentials</p>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        function addToCart(item) {
+            document.getElementById('cartMessage').innerText = item + ' has been added to your cart!';
+            $('#cartModal').modal('show');
+        }
+    </script>
+    <script>
+        window.onload = function () {
+            setTimeout(function () {
+                document.getElementById('preloader').style.display = 'none';
+            }, 1000);
+        };
+        const productsData = [
+            { id: 1, name: 'Soft Plush Toy', image: 'baby.plush.jpg', category: 'new', price: 15.00 },
+            { id: 2, name: 'Building Blocks', image: 'baby.blocks.jpg', category: 'most bought', price: 20.00 },
+            { id: 3, name: 'Musical Mobile', image: 'baby.phone.jpg', category: 'combos', price: 25.00 },
+            { id: 4, name: 'Activity Gym', image: 'baby.gym.jpg', category: 'new', price: 30.00 },
+            { id: 5, name: 'Teething Ring', image: 'baby.ring.jpg', category: 'most bought', price: 10.00 },
+            { id: 6, name: 'Bath Toys', image: 'baby.bath.toy.jpg', category: 'combos', price: 18.00 },
+            { id: 7, name: 'Stacking Cups', image: 'baby.cup.jpg', category: 'new', price: 12.00 },
+            { id: 8, name: 'Push and Pull Toy', image: 'baby.push.jpg', category: 'most bought', price: 35.00 },
+            { id: 9, name: 'Musical Toy', image: 'baby.musical.jpg', category: 'combos', price: 22.00 },
+            { id: 10, name: 'Baby Play Mat', image: 'baby.mat.jpg', category: 'new', price: 28.00 },
+            { id: 11, name: 'Rattle Toy', image: 'baby.rattle.jpg', category: 'most bought', price: 8.00 },
+            { id: 12, name: 'Puzzle Toy', image: 'baby.puzzle.jpg', category: 'combos', price: 17.00 },
+            { id: 13, name: 'Baby Swing', image: 'baby.swing.jpg', category: 'new', price: 40.00 },
+            { id: 14, name: 'Colorful Ball', image: 'baby.ball.jpg', category: 'most bought', price: 9.00 },
+            { id: 15, name: 'Animal Figurines', image: 'baby.animal.jpg', category: 'combos', price: 21.00 },
+            { id: 16, name: 'Baby Walker', image: 'baby.walker.jpg', category: 'new', price: 45.00 }
+        ];
+
+        function ProductCard({ product, addToCart }) {
+            return React.createElement('div', { className: 'product-card' },
+            React.createElement('img', { src: 'images/'+ product.image, alt: product.name, style: { width: '180px', height: 'auto' } }),
+                React.createElement('h2', null, product.name),
+                React.createElement('p', null, `Price: $${product.price.toFixed(2)}`),
+                React.createElement('button', { className: 'btn btn-primary', onClick: () => addToCart(product.name, product.price) }, 'Add to Cart')
+            );
+        }
+
+        function ProductList() {
+            const [products, setProducts] = React.useState(productsData);
+            const [filter, setFilter] = React.useState('all');
+            const [searchTerm, setSearchTerm] = React.useState('');
+            const [sortOrder, setSortOrder] = React.useState('none');
+
+            const handleFilterChange = (newFilter) => {
+                setFilter(newFilter);
+            };
+
+            const handleSearchChange = (event) => {
+                setSearchTerm(event.target.value);
+            };
+
+            const handleSortChange = (newSortOrder) => {
+                setSortOrder(newSortOrder);
+            };
+
+            const filteredProducts = React.useMemo(() => {
+                let filtered = productsData;
+
+                if (filter !== 'all') {
+                    filtered = filtered.filter(product => product.category === filter);
+                }
+
+                if (searchTerm) {
+                    filtered = filtered.filter(product =>
+                        product.name.toLowerCase().includes(searchTerm.toLowerCase())
+                    );
+                }
+
+                return filtered;
+            }, [filter, searchTerm]);
+
+            const sortedProducts = React.useMemo(() => {
+                let sorted = [...filteredProducts];
+
+                if (sortOrder === 'lowToHigh') {
+                    sorted.sort((a, b) => a.price - b.price);
+                } else if (sortOrder === 'highToLow') {
+                    sorted.sort((a, b) => b.price - a.price);
+                }
+
+                return sorted;
+            }, [filteredProducts, sortOrder]);
+
+            const addToCart = (productName, price) => {
+                var cartArray = JSON.parse(localStorage.getItem('shopping-cart')) || [];
+                var product = { productName: productName, price: price, quantity: 1 };
+                cartArray.push(product);
+                localStorage.setItem('shopping-cart', JSON.stringify(cartArray));
+                alert(productName + " has been added to your cart!");
+            };
+
+            return React.createElement('div', null,
+                React.createElement('div', { style: { textAlign: 'center', margin: '20px 0' } },
+                    React.createElement('input', {
+                        type: 'text',
+                        placeholder: 'Search products...',
+                        value: searchTerm,
+                        onChange: handleSearchChange,
+                        className: 'form-control mb-2',
+                        style: { maxWidth: '300px', margin: '0 auto' }
+                    }),
+                    React.createElement('div', { className: 'btn-group' },
+                        React.createElement('button', {
+                            className: `btn ${filter === 'all' ? 'active' : 'inactive'} mr-1`,
+                            onClick: () => handleFilterChange('all'),
+                            style: {
+                                backgroundColor: filter === 'all' ? '#FF9BB7' : '#f0f0f0',
+                                border: 'none',
+                                outline: 'none',
+                                boxShadow: 'none',
+                                color: '#333'
+                            }
+                        }, 'All'),
+                        React.createElement('button', {
+                            className: `btn ${filter === 'new' ? 'active' : 'inactive'} mr-1`,
+                            onClick: () => handleFilterChange('new'),
+                            style: {
+                                backgroundColor: filter === 'new' ? '#FF9BB7' : '#f0f0f0',
+                                border: 'none',
+                                outline: 'none',
+                                boxShadow: 'none',
+                                color: '#333'
+                            }
+                        }, 'New'),
+                        React.createElement('button', {
+                            className: `btn ${filter === 'most bought' ? 'active' : 'inactive'} mr-1`,
+                            onClick: () => handleFilterChange('most bought'),
+                            style: {
+                                backgroundColor: filter === 'most bought' ? '#FF9BB7' : '#f0f0f0',
+                                border: 'none',
+                                outline: 'none',
+                                boxShadow: 'none',
+                                color: '#333'
+                            }
+                        }, 'Most Bought'),
+                        React.createElement('button', {
+                            className: `btn ${filter === 'combos' ? 'active' : 'inactive'} mr-1`,
+                            onClick: () => handleFilterChange('combos'),
+                            style: {
+                                backgroundColor: filter === 'combos' ? '#FF9BB7' : '#f0f0f0',
+                                border: 'none',
+                                outline: 'none',
+                                boxShadow: 'none',
+                                color: '#333'
+                            }
+                        }, 'Combos'),
+                        React.createElement('button', {
+                            className: `btn ${sortOrder === 'none' ? 'active' : 'inactive'} mr-1`,
+                            onClick: () => handleSortChange('none'),
+                            style: {
+                                backgroundColor: sortOrder === 'none' ? '#FF9BB7' : '#f0f0f0',
+                                border: 'none',
+                                outline: 'none',
+                                boxShadow: 'none',
+                                color: '#333'
+                            }
+                        }, 'Sort'),
+                        React.createElement('button', {
+                            className: `btn ${sortOrder === 'lowToHigh' ? 'active' : 'inactive'} mr-1`,
+                            onClick: () => handleSortChange('lowToHigh'),
+                            style: {
+                                backgroundColor: sortOrder === 'lowToHigh' ? '#FF9BB7' : '#f0f0f0',
+                                border: 'none',
+                                outline: 'none',
+                                boxShadow: 'none',
+                                color: '#333'
+                            }
+                        }, 'Low to High'),
+                        React.createElement('button', {
+                            className: `btn ${sortOrder === 'highToLow' ? 'active' : 'inactive'} mr-1`,
+                            onClick: () => handleSortChange('highToLow'),
+                            style: {
+                                backgroundColor: sortOrder === 'highToLow' ? '#FF9BB7' : '#f0f0f0',
+                                border: 'none',
+                                outline: 'none',
+                                boxShadow: 'none',
+                                color: '#333'
+                            }
+                        }, 'High to Low')
+                    )
+                ),
+                React.createElement('div', { className: 'products' },
+                    sortedProducts.map(product =>
+                        React.createElement(ProductCard, { key: product.id, product: product, addToCart: addToCart })
+                    )
+                ),
+                React.createElement('div', { className: 'text-center' },
+                    React.createElement('a', { href: 'cart.html', className: 'btn btn-success' }, 'Go to Cart')
+                )
+            );
+        }
+
+
+
+        ReactDOM.render(React.createElement(ProductList), document.getElementById('root'));
+
+
+
+
+
+    </script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Status</title>
+</head>
+
+<body>
+    <h1 id="status">Checking payment status...</h1>
+
+    <script>
+        async function checkPaymentStatus() {
+            const statusElement = document.getElementById("status");
+            const messages = [
+                "Waiting for payment",
+                "Waiting for payment.",
+                "Waiting for payment..",
+                "Waiting for payment..."
+            ];
+            let index = 0;
+
+            while (localStorage.getItem('isPaid') === "false") {
+                statusElement.innerText = messages[index % messages.length];
+                index++;
+                await new Promise(resolve => setTimeout(resolve, 1000));
+            }
+
+            statusElement.innerText = "Payment received!";
+            window.location.href="receipt.html"
+            
+        }
+
+        checkPaymentStatus(); // Start the function
+    </script>
+</body>
+
+</html>
