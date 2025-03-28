@@ -11,6 +11,7 @@
     <h1 id="status">Checking payment status...</h1>
 
     <script>
+         localStorage.setItem('isPaid', "false")
         async function checkPaymentStatus() {
             const statusElement = document.getElementById("status");
             const messages = [
